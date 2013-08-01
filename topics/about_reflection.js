@@ -11,10 +11,10 @@ var B = function() {
 B.prototype = new A();
 
 test("typeof", function() {
-    equals(typeof({}), __, 'what is the type of an empty object?');
-    equals(typeof('apple'), __, 'what is the type of a string?');
-    equals(typeof(-5), __, 'what is the type of -5?');
-    equals(typeof(false), __, 'what is the type of false?');		
+    equals(typeof({}), "object", 'what is the type of an empty object?');
+    equals(typeof('apple'), "string", 'what is the type of a string?');
+    equals(typeof(-5), "number", 'what is the type of -5?');
+    equals(typeof(false), "boolean", 'what is the type of false?');		
 });
 
 test("property enumeration", function() {
@@ -25,8 +25,8 @@ test("property enumeration", function() {
         keys.push(propertyName);
         values.push(person[propertyName]);
     }
-    ok(keys.equalTo(['__','__','__']), 'what are the property names of the object?');
-    ok(values.equalTo(['__',__,__]), 'what are the property values of the object?');
+    ok(keys.equalTo(['name', 'age', 'unemployed']), 'what are the property names of the object?');
+    ok(values.equalTo(['Amory Blaine', 102, true]), 'what are the property values of the object?');
 });
 
 test("hasOwnProperty", function() {
@@ -37,8 +37,8 @@ test("hasOwnProperty", function() {
     for (propertyName in b) {
         keys.push(propertyName);
     }
-    equals(keys.length, __, 'how many elements are in the keys array?');
-    deepEqual(keys, [__, __], 'what are the properties of the array?');
+    equals(keys.length, 2, 'how many elements are in the keys array?');
+    deepEqual(keys, ["bprop", "aprop"], 'what are the properties of the array?');
 
     // hasOwnProperty returns true if the parameter is a property directly on the object, 
     // but not if it is a property accessible via the prototype chain.
@@ -48,21 +48,21 @@ test("hasOwnProperty", function() {
             ownKeys.push(propertyName);
         }
     }
-    equals(ownKeys.length, __, 'how many elements are in the ownKeys array?');
-    deepEqual(ownKeys, [__], 'what are the own properties of the array?');
+    equals(ownKeys.length, 1, 'how many elements are in the ownKeys array?');
+    deepEqual(ownKeys, ["bprop"], 'what are the own properties of the array?');
 });
 
 test("constructor property", function () {
     var a = new A();
     var b = new B();
-    equals(typeof(a.constructor), __, "what is the type of a's constructor?");
-    equals(a.constructor.name, __, "what is the name of a's constructor?");    
-    equals(b.constructor.name, __, "what is the name of b's constructor?");    
+    equals(typeof(a.constructor), "function", "what is the type of a's constructor?");
+    equals(a.constructor.name, "", "what is the name of a's constructor?");    
+    equals(b.constructor.name, "", "what is the name of b's constructor?");    
 });
 
 test("eval", function() {
     // eval executes a string
     var result = "";
     eval("result = 'apple' + ' ' + 'pie'");
-    equals(result, __, 'what is the value of result?');
+    equals(result, "apple pie", 'what is the value of result?');
 });
